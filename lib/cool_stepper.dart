@@ -78,18 +78,14 @@ class _CoolStepperState extends State<CoolStepper> {
     return widget.steps.length - 1 == index;
   }
 
-  onStepNext() {
-    String validation = widget.steps[currentStep].validation();
+  _onStep({
+    String Function() onValidation,
+    VoidCallback onValid,
+  }) {
+    String validation = onValidation();
+
     if (validation == null) {
-      if (!_isLast(currentStep)) {
-        setState(() {
-          currentStep++;
-        });
-        FocusScope.of(context).unfocus();
-        switchToPage(currentStep);
-      } else {
-        widget.onCompleted();
-      }
+      onValid();
     } else {
       // Show Error Snakbar
       if (widget.showErrorSnackbar) {
@@ -99,13 +95,35 @@ class _CoolStepperState extends State<CoolStepper> {
     }
   }
 
+  onStepNext() {
+    _onStep(
+      onValidation: widget.steps[currentStep].onNextValidation,
+      onValid: () {
+        if (!_isLast(currentStep)) {
+          setState(() {
+            currentStep++;
+          });
+          FocusScope.of(context).unfocus();
+          switchToPage(currentStep);
+        } else {
+          widget.onCompleted();
+        }
+      },
+    );
+  }
+
   onStepBack() {
-    if (!_isFirst(currentStep)) {
-      setState(() {
-        currentStep--;
-      });
-      switchToPage(currentStep);
-    }
+    _onStep(
+      onValidation: widget.steps[currentStep].onPrevValidation,
+      onValid: () {
+        if (!_isFirst(currentStep)) {
+          setState(() {
+            currentStep--;
+          });
+          switchToPage(currentStep);
+        }
+      },
+    );
   }
 
   @override
