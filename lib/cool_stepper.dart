@@ -165,29 +165,9 @@ class _CoolStepperState extends State<CoolStepper> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          TextButton(
-            style: TextButton.styleFrom(
-              padding: EdgeInsets.all(10.0),
-            ),
-            onPressed: onStepBack,
-            child: Text(
-              getPrevLabel(),
-              style: TextStyle(color: Colors.grey),
-            ),
-          ),
+          _getNavButton(getPrevLabel(), Colors.grey, onStepBack),
           counter,
-          TextButton(
-            style: TextButton.styleFrom(
-              padding: EdgeInsets.all(10.0),
-            ),
-            onPressed: onStepNext,
-            child: Text(
-              getNextLabel(),
-              style: TextStyle(
-                color: Colors.green,
-              ),
-            ),
-          ),
+          _getNavButton(getNextLabel(), Colors.green, onStepNext),
         ],
       ),
     );
@@ -198,4 +178,19 @@ class _CoolStepperState extends State<CoolStepper> {
       ),
     );
   }
+}
+
+TextButton _getNavButton(String label, Color color, onPressed) {
+  return TextButton(
+    style: TextButton.styleFrom(
+      padding: EdgeInsets.all(10.0),
+    ),
+    onPressed: onPressed,
+    child: Text(
+      label,
+      style: TextStyle(
+        color: color,
+      ),
+    ),
+  );
 }
