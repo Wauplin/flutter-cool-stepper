@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
-        validation: () {
+        onNextValidation: () {
           if (!_formKey.currentState.validate()) {
             return "Fill form correctly";
           }
@@ -96,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ],
           ),
         ),
-        validation: () {
+        onNextValidation: () {
           return null;
         },
       ),
