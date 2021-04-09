@@ -77,6 +77,9 @@ class _MyHomePageState extends State<MyHomePage> {
           }
           return null;
         },
+        onPrevValidation: () {
+          return null;
+        },
       ),
       CoolStep(
         title: "Select your role",
@@ -97,6 +100,9 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ),
         onNextValidation: () {
+          return null;
+        },
+        onPrevValidation: () {
           return null;
         },
       ),
